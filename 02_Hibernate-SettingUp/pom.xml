@@ -13,12 +13,77 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
-  </properties>
+        <hibernate.version>5.6.15.Final</hibernate.version>
+        <mysql.version>8.0.29</mysql.version>
+        <jaxb.version>2.3.1</jaxb.version>
+    </properties>
 
+    <dependencies>
+        <!-- Hibernate Core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
+        <!-- MySQL Connector/J -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- JPA API -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- JAXB API -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+        <!-- JAXB Runtime -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Maven WAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+<!--
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -27,14 +92,14 @@
       <scope>test</scope>
     </dependency>
     
-    <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+     https://mvnrepository.com/artifact/com.mysql/mysql-connector-j 
 	<dependency>
 	    <groupId>com.mysql</groupId>
 	    <artifactId>mysql-connector-j</artifactId>
 	    <version>9.0.0</version>
 	</dependency>
 
-    <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+     https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api 
 	<dependency>
 	    <groupId>jakarta.servlet</groupId>
 	    <artifactId>jakarta.servlet-api</artifactId>
@@ -42,7 +107,7 @@
 	    <scope>provided</scope>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api -->
+	 https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api 
 	<dependency>
 	    <groupId>jakarta.servlet.jsp</groupId>
 	    <artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -50,37 +115,66 @@
 	    <scope>provided</scope>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+	 https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager 
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-entitymanager</artifactId>
 	    <version>5.6.15.Final</version>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+	 https://mvnrepository.com/artifact/org.hibernate/hibernate-core 
+	 https://mvnrepository.com/artifact/org.hibernate/hibernate-core 
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>6.6.0.Final</version>
+	    <version>5.6.15.Final</version>
 	    <type>pom</type>
 	</dependency>
 
 
+	 JPA API 
+	    <dependency>
+	        <groupId>javax.persistence</groupId>
+	        <artifactId>javax.persistence-api</artifactId>
+	        <version>2.2</version>
+	    </dependency>
+  JAXB API 
+    <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.1</version>
+    </dependency>
 
+     JAXB Runtime 
+    <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>2.3.1</version>
+    </dependency>
 
-
+     Servlet API 
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+     <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.29</version>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>02_Hibernate-SettingUp</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement> lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) 
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+         see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging 
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
@@ -109,3 +203,4 @@
     </pluginManagement>
   </build>
 </project>
+-->

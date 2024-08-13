@@ -1,39 +1,37 @@
 package project.vbb;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import project.vbb.entity.Users;
 
 public class App {
 
 	public static void main(String[] args) {
 		SessionFactory factory = new Configuration()
-								.configure("/src/main/java/hibernate.cfg.xml")
+								.configure("hibernate.cfg.xml")
 								.addAnnotatedClass(Users.class)
 								.buildSessionFactory();
-
+		
 		Session session = factory.getCurrentSession();
 		
 		try {
-	
-			//create object of entity class type
-			Users user = new Users("username", "password", "firstname", "lastname");
-			
-			//start transaction
+			// Create object of entity class type
+			Users user = new Users("username", "password", "first_name", "last_name");
+		    // Start transaction
 			session.beginTransaction();
-			
-			//perform operation
+		    // Perform operation
 			session.save(user);
-			
-			//commit transaction
+		    // Commit the transaction 
 			session.getTransaction().commit();
-			System.out.println("Row Added!");
+			System.out.println("Row added!");
 			
 		}finally {
-		session.close();
-		factory.close();
+			session.close();
+			factory.close();
+		}
+
 	}
-	}
+
 }
