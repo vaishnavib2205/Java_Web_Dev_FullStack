@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Sample</title>
+</head>
+<body>
+    <header>
+        <h1 th:text="'Welcome to Spring Boot, ' + ${name}">Welcome to Spring Boot</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" th:href="@{/home}">Home</a></li>
+          <!--   <li><a href="#" th:href="@{/about}">About</a></li>
+            <li><a href="#" th:href="@{/contact}">Contact</a></li> -->
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <p>This is a sample paragraph demonstrating a Spring Boot and Thymeleaf integration.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
+</body>
+</html>
