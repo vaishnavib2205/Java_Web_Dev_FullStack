@@ -6,8 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,10 +30,7 @@ public class Account {
     @OneToMany(mappedBy="account")
     private List<Post> posts;
 
-    @ManyToMany
-    @JoinTable
-    name="account_authority",
-    joinColumns = {@JoinColumn(name="account_authority")}
+    
 
     
 }
