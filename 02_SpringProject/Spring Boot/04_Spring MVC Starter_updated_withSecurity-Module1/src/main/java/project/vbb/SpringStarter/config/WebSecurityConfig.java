@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -24,6 +26,11 @@ public class WebSecurityConfig {
     };
 
     @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
@@ -33,9 +40,16 @@ public class WebSecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login") // specify your custom login page if any
                 .permitAll()
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login?error").permitAll()
+
             )
             .logout(logout -> logout
-                .permitAll()
+            .logoutUrl("/logout")    
+            .logoutSuccessUrl("/logout?success")
+            .permitAll()
             );
 
         // Disable CSRF and frame options only for H2 console access

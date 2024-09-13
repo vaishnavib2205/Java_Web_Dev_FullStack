@@ -11,8 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Authority {
+    
     @Id
-    private Long Id;
+    private Long id;
 
     private String name;
+    
 }

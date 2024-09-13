@@ -1,17 +1,51 @@
 package project.vbb.SpringStarter.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import project.vbb.SpringStarter.models.Account;
 import project.vbb.SpringStarter.repositories.AccountRepository;
+import project.vbb.SpringStarter.util.constants.Roles;
 
 @Service
-public class AccountService {
+public class AccountService implements UserDetailsService {
+
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account save(Account account){
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public Account save(Account account) {
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        account.setRole(Roles.USER.getRole());
         return accountRepository.save(account);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Account> optionalAccount = accountRepository.findOneByEmailIgnoreCase(email);
+
+        if (optionalAccount.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+
+        Account account = optionalAccount.get();
+
+        List<GrantedAuthority> grantedAuthority = new ArrayList<>();
+        grantedAuthority.add(new SimpleGrantedAuthority(account.getRole()));
+
+        return new User(account.getEmail(), account.getPassword(), grantedAuthority); // Use a custom UserDetails implementation
     }
 }

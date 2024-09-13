@@ -27,6 +27,10 @@ public class Account {
 
     private String firstname;
 
+    private String lastName;
+
+    private String role;
+
     @OneToMany(mappedBy="account")
     private List<Post> posts;
 
