@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head th:replace="/fragments/head :: head"></head>  <!-- Head fragment -->
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="images/nav-bg.jpg" alt="">
+    </div>
+    <header th:replace="/fragments/header :: header"></header>  <!-- Header fragment -->
+  </div>
+
+  <!-- Post section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="post">
+        <h3><a th:text="${post.title}">Post Title</a></h3>
+        <h5 th:text="'Author: ' + ${post.account.firstname} + ' | Created at: ' + ${post.createdAt}"></h5>
+        <p th:text="${post.body}">Post body content</p>
+        <hr color="grey"/>
+        <!-- Edit button, visible only to the post owner -->
+        <div sec:authorize="isAuthenticated()" th:if="${isOwner}">
+          <a th:href="@{'/edit_post/' + ${post.id}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Edit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer th:replace="/fragments/footer :: footer"></footer>  <!-- Footer fragment -->
+
+</body>
+</html>
